@@ -1,12 +1,12 @@
-OBJ_FILES := $(addprefix ./bin/,$(notdir $(CPP_FILES:.cpp=.o)))
-LD_FLAGS := 
+APP := lscns
+SUBDIRS = app watchdog itemmgr datastore
 
-myproj: $(OBJ_FILES)
-#	make -C app
-#	make 
-#	make -C ../parser
-#	make
-#	make -C ../watcdog
-#	make
-#	make -C ../
-	g++ $(LD_FLAGS) -o $@ $^
+subdirs:
+	for dir in $(SUBDIRS); do \
+		$(MAKE) -C $$dir; \
+	done
+	@g++ -o $(APP) ./bin/*.o
+
+clean:
+	rm -f ./bin/*.o
+	rm -f ./lncns
